@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 't
 import { Category } from './category.entity';
 import { Subcategory } from './subcategory.entity';
 import { Store } from 'src/store/models/store.entity';
+import { Type } from './type.entity';
 
 @Entity()
 export class Product {
@@ -43,4 +44,8 @@ export class Product {
   @ManyToOne(() => Subcategory, { eager: true })
   @JoinColumn({ name: 'subcategory_id' })
   subcategory: Subcategory;
+
+  @ManyToOne(() => Type, { eager: true })
+  @JoinColumn({ name: 'type_id' })
+  type: Type;
 }

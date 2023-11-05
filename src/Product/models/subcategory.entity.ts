@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Category } from './category.entity';
+import { Type } from './type.entity';
 
 @Entity()
 export class Subcategory {
@@ -11,6 +12,9 @@ export class Subcategory {
 
   @Column()
   pictureUrl: string;
+
+  @OneToMany(() => Type, type => type.parentSubCategory)
+  types: Type[];
 
   @ManyToOne(() => Category, category => category.subcategories)
   @JoinColumn({ name: 'parentCategoryId' })

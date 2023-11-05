@@ -3,6 +3,7 @@ import { ProductService } from '../services/product.service';
 import { Product } from '../models/product.entity';
 import { Category } from '../models/category.entity';
 import { Subcategory } from '../models/subcategory.entity';
+import { Type } from '../models/type.entity';
 
 @Controller('products')
 export class ProductController {
@@ -11,6 +12,11 @@ export class ProductController {
     @Get()
     getAll(): Promise<Product[]> {
         return this.productService.findAllProducts();
+    }
+
+    @Get(':id')
+    getProductById(@Param('id') id: any) {
+        return this.productService.getProductById(id);
     }
 
     @Post()
@@ -42,7 +48,7 @@ export class CategoryController {
     }
 
     @Post()
-    createProduct(@Body() categoryData: Category): Promise<Category> {
+    createCategory(@Body() categoryData: Category): Promise<Category> {
         return this.productService.createCategory(categoryData);
     }
 
@@ -70,7 +76,7 @@ export class SubCategoryController {
     }
 
     @Post()
-    createProduct(@Body() subCategoryData: Subcategory): Promise<Subcategory> {
+    createSubCategory(@Body() subCategoryData: Subcategory): Promise<Subcategory> {
         return this.productService.createSubCategory(subCategoryData);
     }
 
@@ -85,5 +91,33 @@ export class SubCategoryController {
     @Delete(':id')
     async deleteSubcategory(@Param('id') id: number): Promise<boolean> {
         return this.productService.deleteSubCategory(id);
+    }
+}
+
+@Controller('types')
+export class TypeController {
+    constructor(private productService: ProductService) {}
+    
+    @Get()
+    getAll(): Promise<Type[]> {
+        return this.productService.findAllTypes();
+    }
+
+    @Post()
+    createType(@Body() typeData: Type): Promise<Type> {
+        return this.productService.createType(typeData);
+    }
+
+    @Put(':id')
+    async updateType(
+        @Param('id') id: any,
+        @Body() updatedTypeData: Partial<Type>,
+    ): Promise<Type> {
+        return this.productService.updateType(id, updatedTypeData);
+    }
+
+    @Delete(':id')
+    async deleteType(@Param('id') id: number): Promise<boolean> {
+        return this.productService.deleteType(id);
     }
 }

@@ -13,6 +13,10 @@ export class StoreService {
     return await this.storeRepository.find({ relations: ['products'] });
   }
 
+  async getById(id: any): Promise<Store> {
+    return await this.storeRepository.findOne({ where: { id } })
+  }
+
   async createStore(storeData: Store): Promise<Store> {
     return await this.storeRepository.save(storeData);
   }

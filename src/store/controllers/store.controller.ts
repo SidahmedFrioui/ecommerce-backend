@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Store } from '../models/store.entity';
 import { StoreService } from '../services/store.service';
 
@@ -9,6 +9,11 @@ export class StoreController {
     @Get()
     getAll(): Promise<Store[]> {
         return this.storeService.findAllStores();
+    }
+
+    @Get(':id')
+    getById(@Param('id') id: any): Promise<Store> {
+        return this.storeService.getById(id);
     }
 
     @Post()
