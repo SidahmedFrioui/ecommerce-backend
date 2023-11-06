@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete } from '@nestjs/common';
 import { Store } from '../models/store.entity';
 import { StoreService } from '../services/store.service';
 
@@ -19,5 +19,10 @@ export class StoreController {
     @Post()
     createStore(@Body() storeData: Store): Promise<Store> {
         return this.storeService.createStore(storeData);
+    }
+
+    @Delete(':id')
+    deleteProduct(@Param('id') id: number): Promise<boolean> {
+        return this.storeService.deleteStore(id);
     }
 }

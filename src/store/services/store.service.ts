@@ -20,4 +20,9 @@ export class StoreService {
   async createStore(storeData: Store): Promise<Store> {
     return await this.storeRepository.save(storeData);
   }
+
+  async deleteStore(id: number): Promise<boolean> {
+    const deleteResult = await this.storeRepository.delete(id);
+    return deleteResult.affected > 0;
+  }
 }
