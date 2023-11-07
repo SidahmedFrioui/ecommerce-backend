@@ -12,8 +12,8 @@ export class Product {
   @Column({ length: 500 })
   name: string;
 
-  @Column('json', { nullable: true })
-  description: string[];
+  @Column({ length: 3000})
+  description: string;
 
   @Column()
   thumbnailUrl: string;

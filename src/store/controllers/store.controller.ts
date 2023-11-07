@@ -1,11 +1,13 @@
-import { Body, Controller, Get, Param, Post, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete, UseGuards } from '@nestjs/common';
 import { Store } from '../models/store.entity';
 import { StoreService } from '../services/store.service';
+import UserRole from 'src/user/models/roles.enum';
+import { RoleGuard, Roles } from 'src/user/guards/role.guard';
 
 @Controller('stores')
 export class StoreController {
     constructor(private storeService: StoreService) {}
-
+    
     @Get()
     getAll(): Promise<Store[]> {
         return this.storeService.findAllStores();
